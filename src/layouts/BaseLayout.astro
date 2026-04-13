@@ -8,23 +8,24 @@ interface Props {
   ogDescription?: string;
   canonical?: string;
   jsonLd?: object;
+  lang?: string;
 }
 
-const { title, description, ogTitle, ogDescription, canonical, jsonLd } = Astro.props;
+const { title, description, ogTitle, ogDescription, canonical, jsonLd, lang = "en" } = Astro.props;
 const sitemapHref = Astro.site
   ? new URL(
       'sitemap-index.xml',
       Astro.site.href.endsWith('/') ? Astro.site.href : `${Astro.site.href}/`
     ).href
   : undefined;
-const siteTitle = title.includes(' - ') ? title : `${title} - My Site`;
-const metaDescription = description ?? 'Our landing page offers top-notch services and solutions for your business needs.';
+const siteTitle = title;
+const metaDescription = description ?? "Halaman sementara untuk pemulihan situs.";
 const metaOgTitle = ogTitle ?? title;
 const metaOgDescription = ogDescription ?? metaDescription;
 ---
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -41,6 +42,5 @@ const metaOgDescription = ogDescription ?? metaDescription;
   </head>
   <body>
     <slot />
-    <script is:inline src="/site.js"></script>
   </body>
 </html>
